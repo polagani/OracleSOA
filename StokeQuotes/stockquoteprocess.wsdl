@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<wsdl:definitions name="stockquoteprocess"
+             targetNamespace="http://xmlns.oracle.com/Training_2/StokeQuotes/stockquoteprocess"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             xmlns:client="http://xmlns.oracle.com/Training_2/StokeQuotes/stockquoteprocess"
+             xmlns:ns1="http://www.webserviceX.NET/"
+             xmlns:plnk="http://docs.oasis-open.org/wsbpel/2.0/plnktype">
+
+	<wsdl:import namespace="http://www.webserviceX.NET/" location="stockquote.asmx.wsdl" />
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	TYPE DEFINITION - List of services participating in this BPEL process
+	The default output of the BPEL designer uses strings as input and 
+	output to the BPEL Process. But you can define or import any XML 
+	Schema type and use them as part of the message types.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->   
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	MESSAGE TYPE DEFINITION - Definition of the message types used as 
+	part of the port type defintions
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->      
+	<wsdl:message name="stockquoteprocessRequestMessage">
+		<wsdl:part name="payload" element="ns1:GetQuote" />
+	</wsdl:message>
+
+	<wsdl:message name="stockquoteprocessResponseMessage">
+		<wsdl:part name="payload" element="ns1:GetQuoteResponse" />
+	</wsdl:message>
+
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PORT TYPE DEFINITION - A port type groups a set of operations into
+	a logical service unit.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<!-- portType implemented by the stockquoteprocess BPEL process -->
+	<wsdl:portType name="stockquoteprocess">
+		<wsdl:operation name="process">
+			<wsdl:input message="client:stockquoteprocessRequestMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- portType implemented by the requester of stockquoteprocess BPEL process
+	for asynchronous callback purposes
+	-->
+	<wsdl:portType name="stockquoteprocessCallback">
+		<wsdl:operation name="processResponse">
+			<wsdl:input message="client:stockquoteprocessResponseMessage"/>
+		</wsdl:operation>
+	</wsdl:portType>
+
+	<!-- ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+	PARTNER LINK TYPE DEFINITION
+	the stockquoteprocess partnerLinkType binds the provider and
+	requester portType into an asynchronous conversation.
+	~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~ -->
+	<plnk:partnerLinkType name="stockquoteprocess">
+		<plnk:role name="stockquoteprocessProvider" portType="client:stockquoteprocess"/>
+		<plnk:role name="stockquoteprocessRequester" portType="client:stockquoteprocessCallback"/>
+	</plnk:partnerLinkType>
+</wsdl:definitions>

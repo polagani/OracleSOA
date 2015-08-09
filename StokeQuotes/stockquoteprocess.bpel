@@ -1,0 +1,86 @@
+<?xml version = "1.0" encoding = "UTF-8" ?>
+<!--
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+  Oracle JDeveloper BPEL Designer 
+  
+  Created: Sat Aug 08 18:13:16 EDT 2015
+  Author:  OracleSOA
+  Type: BPEL 2.0 Process
+  Purpose: Asynchronous BPEL Process
+////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+-->
+<process name="stockquoteprocess"
+         targetNamespace="http://xmlns.oracle.com/Training_2/StokeQuotes/stockquoteprocess"
+         xmlns="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:client="http://xmlns.oracle.com/Training_2/StokeQuotes/stockquoteprocess"
+         xmlns:ora="http://schemas.oracle.com/xpath/extension"
+         xmlns:bpelx="http://schemas.oracle.com/bpel/extension"
+         xmlns:bpel="http://docs.oasis-open.org/wsbpel/2.0/process/executable"
+         xmlns:ns1="http://www.webserviceX.NET/">
+
+    <import namespace="http://xmlns.oracle.com/Training_2/StokeQuotes/stockquoteprocess" location="stockquoteprocess.wsdl" importType="http://schemas.xmlsoap.org/wsdl/"/>
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        PARTNERLINKS                                                      
+        List of services participating in this BPEL process               
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    --> 
+    <partnerLinks>
+        <!-- 
+      The 'client' role represents the requester of this service. It is 
+      used for callback. The location and correlation information associated
+      with the client role are automatically set using WS-Addressing.
+    -->
+        <partnerLink name="stockquoteprocess_client" partnerLinkType="client:stockquoteprocess" myRole="stockquoteprocessProvider" partnerRole="stockquoteprocessRequester"/>
+        <partnerLink name="stockquote" partnerLinkType="ns1:stockquote"
+                     partnerRole="StockQuoteSoap"/>
+    </partnerLinks>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+        VARIABLES                                                        
+        List of messages and XML documents used within this BPEL process 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <variables>
+        <!-- Reference to the message passed as input during initiation -->
+        <variable name="inputVariable" messageType="client:stockquoteprocessRequestMessage"/>
+
+        <!-- Reference to the message that will be sent back to the requester during callback -->
+        <variable name="outputVariable" messageType="client:stockquoteprocessResponseMessage"/>
+        <variable name="request" messageType="ns1:GetQuoteSoapIn"/>
+        <variable name="response" messageType="ns1:GetQuoteSoapOut"/>
+    </variables>
+
+    <!-- 
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+       ORCHESTRATION LOGIC                                               
+       Set of activities coordinating the flow of messages across the    
+       services integrated within this business process                  
+      ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+    -->
+    <sequence name="main">
+        <!-- Receive input from requestor. (Note: This maps to operation defined in stockquoteprocess.wsdl) -->
+        <receive name="receiveInput" partnerLink="stockquoteprocess_client" portType="client:stockquoteprocess" operation="process" variable="inputVariable" createInstance="yes"/>
+        <assign name="Assign1">
+            <copy>
+                <from>$inputVariable.payload/ns1:symbol</from>
+                <to>$request.parameters/ns1:symbol</to>
+            </copy>
+        </assign>
+        <invoke name="Invoke1"
+                partnerLink="stockquote" portType="ns1:StockQuoteSoap"
+                operation="GetQuote" inputVariable="request"
+                outputVariable="response" bpelx:invokeAsDetail="no"/>
+        <assign name="Assign2">
+            <copy>
+                <from>$response.parameters/ns1:GetQuoteResult</from>
+                <to>$outputVariable.payload/ns1:GetQuoteResult</to>
+            </copy>
+        </assign>
+        <!-- 
+          Asynchronous callback to the requester. (Note: the callback location and correlation id is transparently handled using WS-addressing.)
+        -->
+        <invoke name="callbackClient" partnerLink="stockquoteprocess_client" portType="client:stockquoteprocessCallback" operation="processResponse" inputVariable="outputVariable"/>
+    </sequence>
+</process>

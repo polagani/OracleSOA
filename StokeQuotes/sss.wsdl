@@ -1,0 +1,25 @@
+<?binding.jca sss_db.jca?>
+<wsdl:definitions name="sss" targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/Training-2/StokeQuotes/sss" xmlns:tns="http://xmlns.oracle.com/pcbpel/adapter/db/Training-2/StokeQuotes/sss" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:plt="http://schemas.xmlsoap.org/ws/2003/05/partner-link/" xmlns:top="http://xmlns.oracle.com/pcbpel/adapter/db/top/sss">
+    <plt:partnerLinkType name="sss_plt">
+        <plt:role name="sss_role">
+            <plt:portType name="tns:sss_ptt"/>
+        </plt:role>
+    </plt:partnerLinkType>
+    <wsdl:types>
+        <schema xmlns="http://www.w3.org/2001/XMLSchema">
+            <import namespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/sss" schemaLocation="xsd/sss_table.xsd"/>
+        </schema>
+    </wsdl:types>
+    <wsdl:message name="sssSelect_inputParameters">
+        <wsdl:part name="sssSelect_inputParameters" element="top:sssSelectInputParameters"/>
+    </wsdl:message>
+    <wsdl:message name="JobsCollection_msg">
+        <wsdl:part name="JobsCollection" element="top:JobsCollection"/>
+    </wsdl:message>
+    <wsdl:portType name="sss_ptt">
+        <wsdl:operation name="sssSelect">
+            <wsdl:input message="tns:sssSelect_inputParameters"/>
+            <wsdl:output message="tns:JobsCollection_msg"/>
+        </wsdl:operation>
+    </wsdl:portType>
+</wsdl:definitions>

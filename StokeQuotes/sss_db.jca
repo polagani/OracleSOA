@@ -1,0 +1,14 @@
+<adapter-config name="sss" adapter="Database Adapter" wsdlLocation="sss.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/Connection1" UIConnectionName="Connection1" adapterRef=""/>
+  <endpoint-interaction portType="sss_ptt" operation="sssSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="sss.Jobs"/>
+      <property name="QueryName" value="sssSelect"/>
+      <property name="MappingsMetaDataURL" value="sss-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

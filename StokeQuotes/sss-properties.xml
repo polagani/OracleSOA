@@ -1,0 +1,25 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="HR.JOBS.JOB_ID:db_column_not_null">true</entry>
+   <entry key="HR.JOBS.MAX_SALARY:db_column_scale">0</entry>
+   <entry key="HR.JOBS.JOB_TITLE:db_column_type">VARCHAR2</entry>
+   <entry key="HR.JOBS.JOB_ID:db_column_size">10</entry>
+   <entry key="HR.JOBS.MAX_SALARY:db_column_precision">6</entry>
+   <entry key="HR.JOBS.MIN_SALARY:db_column_type">NUMBER</entry>
+   <entry key="HR.JOBS:db_column_3">MAX_SALARY</entry>
+   <entry key="HR.JOBS:db_column_2">MIN_SALARY</entry>
+   <entry key="HR.JOBS.JOB_TITLE:db_column_not_null">true</entry>
+   <entry key="HR.JOBS:db_column_1">JOB_TITLE</entry>
+   <entry key="HR.JOBS:db_column_0">JOB_ID</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="HR.JOBS:db_table_type">TABLE</entry>
+   <entry key="HR.JOBS.MIN_SALARY:db_column_not_null">false</entry>
+   <entry key="HR.JOBS.JOB_TITLE:db_column_size">35</entry>
+   <entry key="HR.JOBS.MAX_SALARY:db_column_type">NUMBER</entry>
+   <entry key="root_descriptor_alias">HR.JOBS</entry>
+   <entry key="HR.JOBS.MIN_SALARY:db_column_scale">0</entry>
+   <entry key="HR.JOBS.MIN_SALARY:db_column_precision">6</entry>
+   <entry key="HR.JOBS.MAX_SALARY:db_column_not_null">false</entry>
+   <entry key="HR.JOBS.JOB_ID:db_column_type">VARCHAR2</entry>
+</properties>
