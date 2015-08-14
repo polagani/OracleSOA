@@ -1,0 +1,19 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<!DOCTYPE properties SYSTEM "http://java.sun.com/dtd/properties.dtd">
+<properties>
+   <entry key="HR.COUNTRIES:db_table_type">TABLE</entry>
+   <entry key="HR.COUNTRIES.COUNTRY_NAME:db_column_size">40</entry>
+   <entry key="HR.COUNTRIES:db_column_2">REGION_ID</entry>
+   <entry key="HR.COUNTRIES.COUNTRY_ID:db_column_size">2</entry>
+   <entry key="HR.COUNTRIES:db_column_1">COUNTRY_NAME</entry>
+   <entry key="HR.COUNTRIES.COUNTRY_NAME:db_column_not_null">false</entry>
+   <entry key="HR.COUNTRIES:db_column_0">COUNTRY_ID</entry>
+   <entry key="HR.COUNTRIES.REGION_ID:db_column_not_null">false</entry>
+   <entry key="HR.COUNTRIES.COUNTRY_ID:db_column_not_null">true</entry>
+   <entry key="HR.COUNTRIES.REGION_ID:db_column_type">NUMBER</entry>
+   <entry key="return_single_result_set">false</entry>
+   <entry key="root_descriptor_alias">HR.COUNTRIES</entry>
+   <entry key="HR.COUNTRIES.COUNTRY_NAME:db_column_type">VARCHAR2</entry>
+   <entry key="HR.COUNTRIES.COUNTRY_ID:db_column_type">CHAR</entry>
+   <entry key="HR.COUNTRIES.REGION_ID:db_column_precision">0</entry>
+</properties>

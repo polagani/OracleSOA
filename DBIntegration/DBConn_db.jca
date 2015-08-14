@@ -1,0 +1,14 @@
+<adapter-config name="DBConn" adapter="Database Adapter" wsdlLocation="DBConn.wsdl" xmlns="http://platform.integration.oracle/blocks/adapter/fw/metadata">
+  
+  <connection-factory location="eis/DB/DBConn" UIConnectionName="DBConn" adapterRef=""/>
+  <endpoint-interaction portType="DBConn_ptt" operation="DBConnSelect">
+    <interaction-spec className="oracle.tip.adapter.db.DBReadInteractionSpec">
+      <property name="DescriptorName" value="DBConn.Countries"/>
+      <property name="QueryName" value="DBConnSelect"/>
+      <property name="MappingsMetaDataURL" value="DBConn-or-mappings.xml"/>
+      <property name="ReturnSingleResultSet" value="false"/>
+      <property name="GetActiveUnitOfWork" value="false"/>
+    </interaction-spec>
+  </endpoint-interaction>
+
+</adapter-config>

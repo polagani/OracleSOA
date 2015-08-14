@@ -1,0 +1,32 @@
+<?xml version = '1.0' encoding = 'UTF-8'?>
+<xs:schema targetNamespace="http://xmlns.oracle.com/pcbpel/adapter/db/top/DBConn" xmlns="http://xmlns.oracle.com/pcbpel/adapter/db/top/DBConn" elementFormDefault="qualified" attributeFormDefault="qualified" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+   <xs:element name="CountriesCollection" type="CountriesCollection"/>
+   <xs:complexType name="CountriesCollection">
+      <xs:sequence>
+         <xs:element name="Countries" type="Countries" minOccurs="0" maxOccurs="unbounded"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:complexType name="Countries">
+      <xs:sequence>
+         <xs:element name="countryId">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="2"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="countryName" minOccurs="0" nillable="true">
+            <xs:simpleType>
+               <xs:restriction base="xs:string">
+                  <xs:maxLength value="40"/>
+               </xs:restriction>
+            </xs:simpleType>
+         </xs:element>
+         <xs:element name="regionId" type="xs:decimal" minOccurs="0" nillable="true"/>
+      </xs:sequence>
+   </xs:complexType>
+   <xs:element name="DBConnSelectInputParameters" type="DBConnSelect"/>
+   <xs:complexType name="DBConnSelect">
+      <xs:sequence/>
+   </xs:complexType>
+</xs:schema>
